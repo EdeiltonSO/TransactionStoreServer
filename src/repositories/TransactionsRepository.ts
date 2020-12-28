@@ -31,7 +31,16 @@ class TransactionsRepository {
   }
 
   public getBalance(): Balance {
-    // só por agora, utilizando um valor fixo
+    let incomes = 0;
+    let outcomes = 0;
+    this.transactions.forEach(t => {
+      if (t.type === 'income') incomes += t.value;
+      else outcomes += t.value;
+    });
+
+    this.balance.income = incomes;
+    this.balance.outcome = outcomes;
+    this.balance.total = incomes - outcomes;
     return this.balance;
   }
 
